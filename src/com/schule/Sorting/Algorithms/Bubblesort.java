@@ -2,6 +2,7 @@ package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
 import static com.schule.Sorting.Algorithms.Helper.swap;
 
 public class Bubblesort {
@@ -26,6 +27,7 @@ public class Bubblesort {
             }
             --n;
         } while (swapped);
+        assert isSorted(arr);
         return arr;
     }
 

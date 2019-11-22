@@ -2,6 +2,8 @@ package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
+
 public class LSD_Radixsort {
 
     private static final int BITS_PER_BYTE = 8;
@@ -25,8 +27,8 @@ public class LSD_Radixsort {
 
             // compute frequency counts
             int[] count = new int[R+1];
-            for (int i = 0; i < n; i++) {
-                int c = (a[i] >> BITS_PER_BYTE*d) & MASK;
+            for (int value : a) {
+                int c = (value >> BITS_PER_BYTE * d) & MASK;
                 count[c + 1]++;
             }
 
@@ -45,9 +47,9 @@ public class LSD_Radixsort {
             }
 
             // move data
-            for (int i = 0; i < n; i++) {
-                int c = (a[i] >> BITS_PER_BYTE*d) & MASK;
-                aux[count[c]++] = a[i];
+            for (int value : a) {
+                int c = (value >> BITS_PER_BYTE * d) & MASK;
+                aux[count[c]++] = value;
             }
 
             // copy back
@@ -63,7 +65,7 @@ public class LSD_Radixsort {
                 }
             }
         }
-
+        assert isSorted(a);
         return a;
     }
 

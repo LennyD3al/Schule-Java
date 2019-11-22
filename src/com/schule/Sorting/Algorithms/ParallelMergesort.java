@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
+
 public class ParallelMergesort extends RecursiveAction {
 
     private JPanel panel;
@@ -13,6 +15,7 @@ public class ParallelMergesort extends RecursiveAction {
 
         ParallelMergesort sorter = new ParallelMergesort(arr, panel, delay);
         sorter.sort();
+        assert isSorted(arr);
         return arr;
     }
 

@@ -2,6 +2,7 @@ package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
 import static com.schule.Sorting.Algorithms.Helper.swap;
 
 public class Quicksort {
@@ -24,6 +25,7 @@ public class Quicksort {
             sort(a, lo, p - 1, panel, delay);
             sort(a, p + 1, hi, panel, delay);
         }
+        assert isSorted(a);
         return a;
     }
 

@@ -67,7 +67,7 @@ public class Helper {
         return true;
     }
 
-    public static int[] concatenate(int[] a, int[] b) {
+    static int[] concatenate(int[] a, int[] b) {
         int aLen = a.length;
         int bLen = b.length;
 

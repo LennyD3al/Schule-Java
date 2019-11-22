@@ -3,11 +3,13 @@ package com.schule.Sorting.Algorithms;
 import javax.swing.*;
 import java.util.ArrayList;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
+
 public class Mergesort {
 
     // Main function that sorts arr[l..r] using
     // merge()
-    private static int[] sort(int arr[], int l, int r, JPanel panel, long delay)
+    private static int[] sort(int[] arr, int l, int r, JPanel panel, long delay)
     {
         if (l < r)
         {
@@ -21,7 +23,7 @@ public class Mergesort {
             // Merge the sorted halves
             merge(arr, l, m, r, panel, delay);
         }
-
+        assert isSorted(arr);
         return arr;
     }
 
@@ -33,19 +35,18 @@ public class Mergesort {
         return sort(arr, null, 0);
     }
 
-    public static void merge(int arr[], int l, int m, int r, JPanel panel, long delay)
+    private static void merge(int[] arr, int l, int m, int r, JPanel panel, long delay)
     {
         // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
         int n2 = r - m;
 
         /* Create temp arrays */
-        int L[] = new int [n1];
-        int R[] = new int [n2];
+        int[] L = new int [n1];
+        int[] R = new int [n2];
 
         /*Copy data to temp arrays*/
-        for (int i=0; i<n1; ++i)
-            L[i] = arr[l + i];
+        System.arraycopy(arr, l, L, 0, n1);
         for (int j=0; j<n2; ++j)
             R[j] = arr[m + 1+ j];
 

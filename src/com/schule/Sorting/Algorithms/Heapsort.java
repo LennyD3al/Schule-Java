@@ -3,6 +3,7 @@ package com.schule.Sorting.Algorithms;
 import javax.swing.*;
 import java.util.Arrays;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
 import static com.schule.Sorting.Algorithms.Helper.swap;
 
 public class Heapsort {
@@ -37,6 +38,7 @@ public class Heapsort {
             siftDown(a, 0, end);
 
         }
+        assert isSorted(a);
         return a;
     }
 
@@ -86,10 +88,6 @@ public class Heapsort {
 
     private static int iLeftChild(int i) {
         return 2 * i + 1;
-    }
-
-    private static int iRigthChild(int i) {
-        return 2 * i + 2;
     }
 
 }

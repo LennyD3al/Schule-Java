@@ -2,6 +2,7 @@ package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
 import static com.schule.Sorting.Algorithms.Helper.randomizeArray;
 
 public class Bogosort {
@@ -22,6 +23,7 @@ public class Bogosort {
             j++;
         }
         System.out.print("Run: " + j + "\n");
+        assert isSorted(arr);
         return arr;
     }
     public static int[] sort(int[] arr) {

@@ -2,6 +2,7 @@ package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
 import static com.schule.Sorting.Algorithms.Helper.swap;
 
 public class Insertionsort {
@@ -19,6 +20,7 @@ public class Insertionsort {
                 }
             }
         }
+        assert isSorted(arr);
         return arr;
     }
 

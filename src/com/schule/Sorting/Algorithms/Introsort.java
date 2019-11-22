@@ -2,23 +2,27 @@ package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
+
 public class Introsort {
 
     /*
      * Class Variables
      */
-    private static int size_threshold = 16;
+    private static final int SIZE_THRESHOLD = 16;
 
     /*
      * Public interface
      */
     public static int[] sort(int[] a, JPanel panel, long delay) {
         introsort_loop(a, 0, a.length, 2 * floor_lg(a.length), panel, delay);
+        assert isSorted(a);
         return a;
     }
 
     public static int[] sort(int[] a) {
         introsort_loop(a, 0, a.length, 2 * floor_lg(a.length), null, 0);
+        assert isSorted(a);
         return a;
     }
 
@@ -37,7 +41,7 @@ public class Introsort {
      * Quicksort algorithm modified for Introsort
      */
     private static void introsort_loop(int[] a, int lo, int hi, int depth_limit, JPanel panel, long delay) {
-        while (hi - lo > size_threshold) {
+        while (hi - lo > SIZE_THRESHOLD) {
             if (depth_limit == 0) {
                 heapsort(a, lo, hi, panel, delay);
                 return;
@@ -76,17 +80,11 @@ public class Introsort {
             if (a[hi] < a[mid])
                 return a[mid];
             else {
-                if (a[hi] < a[lo])
-                    return a[hi];
-                else
-                    return a[lo];
+                return Math.min(a[hi], a[lo]);
             }
         } else {
             if (a[hi] < a[mid]) {
-                if (a[hi] < a[lo])
-                    return a[lo];
-                else
-                    return a[hi];
+                return Math.max(a[hi], a[lo]);
             } else
                 return a[mid];
         }

@@ -5,14 +5,17 @@ import com.schule.Sorting.Algorithms.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Objects;
 
+import static com.schule.Sorting.Algorithms.Helper.isSorted;
 import static com.schule.Sorting.Algorithms.Helper.randomizeArray;
 
 public class Visualization extends JFrame {
 
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 500;
+    private static final int WIDTH = 2000;
+    private static final int HEIGHT = 750;
     private static final int HEIGHT_TOP = 25;
 
     private JTextField delayTF = new JTextField();
@@ -22,7 +25,7 @@ public class Visualization extends JFrame {
 
     private Thread thread;
 
-    public Visualization() {
+    private Visualization() {
         initComponents();
     }
 
@@ -37,7 +40,7 @@ public class Visualization extends JFrame {
         buttonPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT_TOP));
         buttonPanel.setLayout(new GridLayout(1, 5));
 
-        JPanel drawPanel;
+        DrawPanel drawPanel;
         drawPanel = new DrawPanel(arr, WIDTH, HEIGHT);
         drawPanel.setBackground(Color.GRAY);
         drawPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
@@ -58,63 +61,63 @@ public class Visualization extends JFrame {
                 case Bubblesort:
                     thread = new Thread("Bubblesort") {
                         public void run() {
-                            Bubblesort.sort(arr, drawPanel, finalDelay);
+                            Bubblesort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case Insertionsort:
                     thread = new Thread("Insertionsort") {
                         public void run() {
-                            Insertionsort.sort(arr, drawPanel, finalDelay);
+                            Insertionsort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case Heapsort:
                     thread = new Thread("Heapsort") {
                         public void run() {
-                            Heapsort.sort(arr, drawPanel, finalDelay);
+                            Heapsort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case Mergesort:
                     thread = new Thread("Mergesort") {
                         public void run() {
-                            Mergesort.sort(arr, drawPanel, finalDelay);
+                            Mergesort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case ParallelMergesort:
                     thread = new Thread("Parallel Mergesort") {
                         public void run() {
-                            ParallelMergesort.sort(arr, drawPanel, finalDelay);
+                            ParallelMergesort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case Quicksort:
                     thread = new Thread("Quicksort") {
                         public void run() {
-                            Quicksort.sort(arr, drawPanel, finalDelay);
+                            Quicksort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case Introsort:
                     thread = new Thread("Introsort") {
                         public void run() {
-                            Introsort.sort(arr, drawPanel, finalDelay);
+                            Introsort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case LSD:
                     thread = new Thread("LSD") {
                         public void run() {
-                            LSD_Radixsort.sort(arr, drawPanel, finalDelay);
+                            LSD_Radixsort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
                 case Bogosort:
                     thread = new Thread("Bogosort") {
                         public void run() {
-                            Bogosort.sort(arr, drawPanel, finalDelay);
+                            Bogosort.sort(drawPanel.arr, drawPanel, finalDelay);
                         }
                     };
                     break;
@@ -140,19 +143,19 @@ public class Visualization extends JFrame {
         JButton random1 = new JButton("Random 1");
         random1.addActionListener(e -> {
             if (thread != null) thread.stop();
-            for (int i = 0; i < arr.length; ++i) {
+            for (int i = 0; i < drawPanel.arr.length; ++i) {
                 double height = (double) i * ((double) drawPanel.getHeight() / (double) drawPanel.getWidth());
-                arr[i] = (int) height;
+                drawPanel.arr[i] = (int) height;
             }
-            randomizeArray(arr);
+            randomizeArray(drawPanel.arr);
             drawPanel.repaint();
         });
 
         JButton random2 = new JButton("Random 2");
         random2.addActionListener(e -> {
             if (thread != null) thread.stop();
-            for (int i = 0; i < arr.length; ++i) {
-                arr[i] = Math.toIntExact(Math.round(Math.random() * drawPanel.getHeight()));
+            for (int i = 0; i < drawPanel.arr.length; ++i) {
+                drawPanel.arr[i] = Math.toIntExact(Math.round(Math.random() * drawPanel.getHeight()));
             }
             drawPanel.repaint();
         });
@@ -185,21 +188,50 @@ public class Visualization extends JFrame {
     //class jPanel2 extends JPanel {
     class DrawPanel extends JPanel {
 
-        private int[] arr;
+        int[] arr;
+        private JPanel panel;
+        private int prevWidth;
 
-        DrawPanel(int[] arr, int width, int height) {
-            this.arr = arr;
+        DrawPanel(int[] _arr, int width, int height) {
+            this.arr = _arr;
+            this.panel = this;
+            this.prevWidth = width;
             setPreferredSize(new Dimension(width, height));
+
+            addComponentListener(new ComponentAdapter() {
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    super.componentResized(e);
+
+                    if (e.getComponent().getWidth() != prevWidth)  {
+                        int[] oldArr = arr;
+                        arr = new int[e.getComponent().getWidth()];
+                        System.arraycopy(oldArr, 0, arr, 0, arr.length);
+                    }
+                    panel.repaint();
+                    // System.out.println(e.getComponent().getWidth());
+                    // System.out.println(e.getComponent().getHeight());
+                }
+            });
         }
 
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+
             g.setColor(Color.WHITE);
             for (int i = 0; i < arr.length; ++i) {
                 // System.out.println("Test");
                 g.fillRect(i, getHeight(), 1, -arr[i]);
             }
+
+            g.setColor(Color.BLACK);
+            g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
+            g.drawString("Elements in Array: " + arr.length, 10, 20);
+            if (isSorted(arr)) g.drawString("Status: Sorted", 10, 40);
+            else g.drawString("Status: Unsorted", 10, 40);
         }
+
+
     }
 }

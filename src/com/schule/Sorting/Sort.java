@@ -17,7 +17,7 @@ public class Sort extends JFrame {
     private static final int BUTTON_WIDTH = 100;
     private static final int BUTTON_HEIGHT = 25;
 
-    private static final int SIZE = 12;
+    private static final int SIZE = 15;
 
     // GLOBAL SWING OBJECTS
     private JTextField[] textFields = new JTextField[SIZE];
