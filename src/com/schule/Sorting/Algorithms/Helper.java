@@ -88,4 +88,34 @@ public class Helper {
             arr[i] = temp;
         }
     }
+
+    public static double scale(double num, double in_min, double in_max, double out_min, double out_max) {
+         return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
+    public static int getMax(int[] arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; ++i) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+
+    public static int getMin(int[] arr) {
+        int min = arr[0];
+        for (int i = 1; i < arr.length; ++i) {
+            if (arr[i] < min) {
+                min = arr[i];
+            }
+        }
+        return min;
+    }
+
+    public static void scaleArr(int[] arr, int in_min, int in_max, int out_min, int out_max) {
+         for (int i = 0; i < arr.length; i++) {
+             arr[i] = (int) scale(arr[i], in_min, in_max, out_min, out_max);
+         }
+    }
 }

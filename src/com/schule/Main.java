@@ -5,6 +5,7 @@ import com.schule.Sorting.Algorithms.*;
 
 import java.util.Arrays;
 
+import static com.schule.Sorting.Algorithms.Helper.scale;
 import static com.schule.Sorting.Algorithms.Helper.testSorting;
 
 public class Main {
@@ -22,6 +23,9 @@ public class Main {
         testSorting(Introsort::sort, "Introsort", 1000000, 10);
         */
         testSorting(LSD_Radixsort::sort, "LSD", 1000000, 10);
+
+        System.out.println(scale(5, 0, 10, -50, 50));
+
 
     }
 

@@ -9,8 +9,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Objects;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
-import static com.schule.Sorting.Algorithms.Helper.randomizeArray;
+import static com.schule.Sorting.Algorithms.Helper.*;
 
 public class Visualization extends JFrame {
 
@@ -34,7 +33,7 @@ public class Visualization extends JFrame {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT + HEIGHT_TOP));
 
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT_TOP));
@@ -169,8 +168,15 @@ public class Visualization extends JFrame {
         // add the component to the frame to see it!
         this.setContentPane(mainPanel);
 
-        mainPanel.add(buttonPanel);
-        mainPanel.add(drawPanel);
+        mainPanel.add(buttonPanel, BorderLayout.PAGE_START);
+        mainPanel.add(drawPanel, BorderLayout.CENTER);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+            }
+        });
 
         // be nice to testers..
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -202,12 +208,16 @@ public class Visualization extends JFrame {
                 @Override
                 public void componentResized(ComponentEvent e) {
                     super.componentResized(e);
+                    if (thread != null) thread.stop();
 
                     if (e.getComponent().getWidth() != prevWidth)  {
                         int[] oldArr = arr;
                         arr = new int[e.getComponent().getWidth()];
-                        System.arraycopy(oldArr, 0, arr, 0, arr.length);
+                        System.arraycopy(oldArr, 0, arr, 0, Math.min(arr.length, oldArr.length));
+
                     }
+
+                    scaleArr(arr, 0, getMax(arr), 0, e.getComponent().getHeight());
                     panel.repaint();
                     // System.out.println(e.getComponent().getWidth());
                     // System.out.println(e.getComponent().getHeight());
