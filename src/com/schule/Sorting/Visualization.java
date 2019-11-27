@@ -20,8 +20,6 @@ public class Visualization extends JFrame {
     private JTextField delayTF = new JTextField();
     private JComboBox<SortingAlgorithms> sortingAlgoCombo = new JComboBox<>(SortingAlgorithms.values());
 
-    private int[] arr = new int[WIDTH];
-
     private Thread thread;
 
     private Visualization() {
@@ -39,6 +37,7 @@ public class Visualization extends JFrame {
         buttonPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT_TOP));
         buttonPanel.setLayout(new GridLayout(1, 5));
 
+        int[] arr = new int[WIDTH];
         DrawPanel drawPanel;
         drawPanel = new DrawPanel(arr, WIDTH, HEIGHT, true, thread);
         drawPanel.setBackground(Color.GRAY);

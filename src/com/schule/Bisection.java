@@ -1,11 +1,7 @@
 package com.schule;
 
 public class Bisection {
-    /**
-     * @param a Param a
-     * @param b Param b
-     * @return return value
-     */
+
     public static double bisect(double a, double b) {
         double fa = f1(a), fb = f1(b);
         while ((b - a) > 1e-15) {

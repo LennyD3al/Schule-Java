@@ -103,6 +103,16 @@ public class Helper {
         return max;
     }
 
+    public static double getMax(double[] arr) {
+        double max = arr[0];
+        for (int i = 1; i < arr.length; ++i) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+
     public static int getMin(int[] arr) {
         int min = arr[0];
         for (int i = 1; i < arr.length; ++i) {
@@ -117,5 +127,11 @@ public class Helper {
          for (int i = 0; i < arr.length; i++) {
              arr[i] = (int) scale(arr[i], in_min, in_max, out_min, out_max);
          }
+    }
+
+    public static void scaleArr(double[] arr, int in_min, int in_max, int out_min, int out_max) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = scale(arr[i], in_min, in_max, out_min, out_max);
+        }
     }
 }
