@@ -4,7 +4,7 @@ import com.schule.Sorting.Algorithms.Helper;
 
 public class BinarySearch {
     public static int search(int[] arr, int x) {
-        assert Helper.isSorted(arr);
+        assert Helper.isSorted(arr) : "Array must be sorted";
         int l = 0, r = arr.length - 1;
         while (l <= r) {
             int m = l + (r - l) / 2;
@@ -18,7 +18,7 @@ public class BinarySearch {
                 r = m - 1;
 
         }
-        return-1;
+        return -1;
     }
 
 }

@@ -1,7 +1,6 @@
 package com.schule.Sorting.Algorithms;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 import static com.schule.Sorting.Algorithms.Helper.isSorted;
 

@@ -22,7 +22,8 @@ public class Main {
         testSorting(ParallelMergesort::sort, "Parallel Mergesort", 1000000, 10);
         testSorting(Introsort::sort, "Introsort", 1000000, 10);
         */
-        testSorting(LSD_Radixsort::sort, "LSD", 1000000, 10);
+        testSorting(Selectionsort::sort, "Selection", 100000, 1);
+        testSorting(LSD_Radixsort::sort, "LSD", 100000, 10);
 
         System.out.println(scale(5, 0, 10, -50, 50));
 

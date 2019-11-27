@@ -13,7 +13,7 @@ import static com.schule.Sorting.Algorithms.Helper.*;
 
 public class Visualization extends JFrame {
 
-    private static final int WIDTH = 2000;
+    private static final int WIDTH = 1000;
     private static final int HEIGHT = 750;
     private static final int HEIGHT_TOP = 25;
 
@@ -40,7 +40,7 @@ public class Visualization extends JFrame {
         buttonPanel.setLayout(new GridLayout(1, 5));
 
         DrawPanel drawPanel;
-        drawPanel = new DrawPanel(arr, WIDTH, HEIGHT);
+        drawPanel = new DrawPanel(arr, WIDTH, HEIGHT, true, thread);
         drawPanel.setBackground(Color.GRAY);
         drawPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
@@ -165,7 +165,6 @@ public class Visualization extends JFrame {
         buttonPanel.add(random2);
         buttonPanel.add(sortingAlgoCombo);
 
-        // add the component to the frame to see it!
         this.setContentPane(mainPanel);
 
         mainPanel.add(buttonPanel, BorderLayout.PAGE_START);
@@ -178,70 +177,13 @@ public class Visualization extends JFrame {
             }
         });
 
-        // be nice to testers..
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
-    }// </editor-fold>
+    }
 
 
     //set ui visible//
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> new Visualization().setVisible(true));
-    }
-
-    // This class name is very confusing, since it is also used as the
-    // name of an attribute!
-    //class jPanel2 extends JPanel {
-    class DrawPanel extends JPanel {
-
-        int[] arr;
-        private JPanel panel;
-        private int prevWidth;
-
-        DrawPanel(int[] _arr, int width, int height) {
-            this.arr = _arr;
-            this.panel = this;
-            this.prevWidth = width;
-            setPreferredSize(new Dimension(width, height));
-
-            addComponentListener(new ComponentAdapter() {
-                @Override
-                public void componentResized(ComponentEvent e) {
-                    super.componentResized(e);
-                    if (thread != null) thread.stop();
-
-                    if (e.getComponent().getWidth() != prevWidth)  {
-                        int[] oldArr = arr;
-                        arr = new int[e.getComponent().getWidth()];
-                        System.arraycopy(oldArr, 0, arr, 0, Math.min(arr.length, oldArr.length));
-
-                    }
-
-                    scaleArr(arr, 0, getMax(arr), 0, e.getComponent().getHeight());
-                    panel.repaint();
-                    // System.out.println(e.getComponent().getWidth());
-                    // System.out.println(e.getComponent().getHeight());
-                }
-            });
-        }
-
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            g.setColor(Color.WHITE);
-            for (int i = 0; i < arr.length; ++i) {
-                // System.out.println("Test");
-                g.fillRect(i, getHeight(), 1, -arr[i]);
-            }
-
-            g.setColor(Color.BLACK);
-            g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 14));
-            g.drawString("Elements in Array: " + arr.length, 10, 20);
-            if (isSorted(arr)) g.drawString("Status: Sorted", 10, 40);
-            else g.drawString("Status: Unsorted", 10, 40);
-        }
-
-
     }
 }

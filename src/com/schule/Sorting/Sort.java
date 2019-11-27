@@ -1,8 +1,12 @@
 package com.schule.Sorting;
 
+import com.schule.Searching.BinarySearch;
+import com.schule.Searching.LinearSearch;
 import com.schule.Sorting.Algorithms.*;
+import com.schule.Sorting.Visualization;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -24,6 +28,8 @@ public class Sort extends JFrame {
     private JComboBox<SortingAlgorithms> sortingAlgoCombo = new JComboBox<>(SortingAlgorithms.values());
     private JTextField inputTF = new JTextField();
 
+    private DrawPanel drawPanel;
+
     private int[] numbers = new int[SIZE];
 
     private Sort(String title) {
@@ -35,7 +41,7 @@ public class Sort extends JFrame {
             }
         });
         int frameWidth = 650;
-        int frameHeight = 300;
+        int frameHeight = 445;
         setSize(frameWidth, frameHeight);
         JPanel mainPanel = new JPanel(null);
         add(mainPanel);
@@ -107,6 +113,18 @@ public class Sort extends JFrame {
         sortingAlgoCombo.setBounds(X_OFFSET + BUTTON_WIDTH * 3, 100, BUTTON_WIDTH, BUTTON_HEIGHT);
         mainPanel.add(sortingAlgoCombo);
 
+        JButton bSuchenBin = new JButton();
+        bSuchenBin.setText("Binäre Suche");
+        bSuchenBin.setBounds(X_OFFSET + BUTTON_WIDTH * 4, 100, BUTTON_WIDTH, BUTTON_HEIGHT);
+        bSuchenBin.addActionListener(e -> bSuchenBin_Action());
+        mainPanel.add(bSuchenBin);
+
+        drawPanel = new DrawPanel(numbers, frameWidth, 250, false, null);
+        drawPanel.setBounds(0, 150, frameWidth, 250);
+        drawPanel.setBackground(Color.GRAY);
+
+        mainPanel.add(drawPanel);
+
         setVisible(true);
 
     }
@@ -159,6 +177,8 @@ public class Sort extends JFrame {
                     textFields[i].setBackground(Color.PINK);
                 }
             }
+
+
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
         }
@@ -239,6 +259,9 @@ public class Sort extends JFrame {
             case Insertionsort:
                 Insertionsort.sort(toSort);
                 break;
+            case Selectionsort:
+                Selectionsort.sort(toSort);
+                break;
             case Heapsort:
                 Heapsort.sort(toSort);
                 break;
@@ -271,8 +294,25 @@ public class Sort extends JFrame {
         ausgeben();
     }
 
+    private void bSuchenBin_Action() {
+        demarkieren();
+        try {
+            int input = Integer.parseInt(inputTF.getText());
+
+            if (input <= 0 || input > 250) return;
+
+            int index = BinarySearch.search(numbers, input);
+            if (index != -1) textFields[index].setBackground(Color.PINK);
+
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void ausgeben() {
         demarkieren();
+        drawPanel.arr = numbers;
+        drawPanel.repaint();
         for (int i = 0; i < numbers.length; ++i) {
             if (numbers[i] == 0) {
                 textFields[i].setText("");
