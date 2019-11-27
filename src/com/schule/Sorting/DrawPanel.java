@@ -61,17 +61,25 @@ public class DrawPanel extends JPanel {
 
         LinearGradientPaint paint = new LinearGradientPaint(0f, 0f, getWidth(),0f, fractions, colors);
 
-
         for (int i = 0; i < arr.length; ++i) {
 
             /*
             float r = (float) (scaledArr[i] / 100f);
             float gr = (float) ((100 - scaledArr[i]) / 100f);
              */
+            int R, G, B;
+            if (scaledArr[i] < 50) {
+                R = (int) (orange.getRed() * scaledArr[i] / 50 + pink.getRed() * (1 - scaledArr[i] / 50));
+                G = (int) (orange.getGreen() * scaledArr[i] / 50 + pink.getGreen() * (1 - scaledArr[i] / 50));
+                B = (int) (orange.getBlue() * scaledArr[i] / 50 + pink.getBlue() * (1 - scaledArr[i] / 50));
+            } else {
+                R = (int) (cyan.getRed() * (scaledArr[i] - 50) / 50 + orange.getRed() * (1 - (scaledArr[i] - 50) / 50));
+                G = (int) (cyan.getGreen() * (scaledArr[i] - 50) / 50 + orange.getGreen() * (1 - (scaledArr[i] - 50) / 50));
+                B = (int) (cyan.getBlue() * (scaledArr[i] - 50) / 50 + orange.getBlue() * (1 - (scaledArr[i] - 50) / 50));
+            }
 
-            int R = (int) (pink.getRed() * scaledArr[i] / 100 + cyan.getRed() * (1 - scaledArr[i] / 100));
-            int G = (int) (pink.getGreen() * scaledArr[i] / 100 + cyan.getGreen() * (1 - scaledArr[i] / 100));
-            int B = (int) (pink.getBlue() * scaledArr[i] / 100 + cyan.getBlue() * (1 - scaledArr[i] / 100));
+
+
 
             // g2d.setPaint(paint);
             g2d.setColor(new Color(R, G, B));
