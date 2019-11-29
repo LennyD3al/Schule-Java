@@ -70,6 +70,13 @@ public class Visualization extends JFrame {
                         }
                     };
                     break;
+                case Selectionsort:
+                    thread = new Thread("Selectionsort") {
+                        public void run() {
+                            Selectionsort.sort(drawPanel.arr, drawPanel, finalDelay);
+                        }
+                    };
+                    break;
                 case Heapsort:
                     thread = new Thread("Heapsort") {
                         public void run() {

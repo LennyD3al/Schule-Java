@@ -41,7 +41,7 @@ public class Sort extends JFrame {
             }
         });
         int frameWidth = 650;
-        int frameHeight = 445;
+        int frameHeight = 438;
         setSize(frameWidth, frameHeight);
         JPanel mainPanel = new JPanel(null);
         add(mainPanel);
@@ -301,7 +301,12 @@ public class Sort extends JFrame {
 
             if (input <= 0 || input > 250) return;
 
-            int index = BinarySearch.search(numbers, input);
+            int[] toSearch = new int[SIZE];
+            for (int i = 0; i < numbers.length; ++i) {
+                if (numbers[i] == 0) toSearch[i] = Integer.MAX_VALUE;
+                else toSearch[i] = numbers[i];
+            }
+            int index = BinarySearch.search(toSearch, input);
             if (index != -1) textFields[index].setBackground(Color.PINK);
 
         } catch (NumberFormatException e) {

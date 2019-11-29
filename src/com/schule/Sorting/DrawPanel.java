@@ -56,18 +56,14 @@ public class DrawPanel extends JPanel {
         Color orange = new Color(255, 140, 0);
         Color pink = new Color(255, 0, 128);
 
-        Color[] colors = {cyan, orange, pink};
-        float[] fractions = {0.0f, 0.5f, 1.0f};
-
-        LinearGradientPaint paint = new LinearGradientPaint(0f, 0f, getWidth(),0f, fractions, colors);
-
         for (int i = 0; i < arr.length; ++i) {
-
-            /*
-            float r = (float) (scaledArr[i] / 100f);
-            float gr = (float) ((100 - scaledArr[i]) / 100f);
-             */
             int R, G, B;
+            /*
+            float R = (float) (scaledArr[i] / 100f);
+            float G = (float) ((100 - scaledArr[i]) / 100f);
+            float B = 0;
+             */
+
             if (scaledArr[i] < 50) {
                 R = (int) (orange.getRed() * scaledArr[i] / 50 + pink.getRed() * (1 - scaledArr[i] / 50));
                 G = (int) (orange.getGreen() * scaledArr[i] / 50 + pink.getGreen() * (1 - scaledArr[i] / 50));
@@ -78,10 +74,6 @@ public class DrawPanel extends JPanel {
                 B = (int) (cyan.getBlue() * (scaledArr[i] - 50) / 50 + orange.getBlue() * (1 - (scaledArr[i] - 50) / 50));
             }
 
-
-
-
-            // g2d.setPaint(paint);
             g2d.setColor(new Color(R, G, B));
             // g2d.setColor(Color.WHITE);
 
