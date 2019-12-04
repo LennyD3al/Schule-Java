@@ -75,7 +75,7 @@ public class DrawPanel extends JPanel {
             }
 
             g2d.setColor(new Color(R, G, B));
-            // g2d.setColor(Color.WHITE);
+            //g2d.setColor(Color.PINK);
 
             int width = getWidth() / arr.length;
             g2d.fillRect(i * width, getHeight() - arr[i], width, getHeight());
