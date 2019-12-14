@@ -1,6 +1,6 @@
-package com.schule.Searching;
+package Searching;
 
-import com.schule.Sorting.Algorithms.Helper;
+import Sorting.Algorithms.Helper;
 
 public class BinarySearch {
     public static int search(int[] arr, int x) {

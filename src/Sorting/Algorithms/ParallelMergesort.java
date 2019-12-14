@@ -1,10 +1,10 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
+import static Sorting.Algorithms.Helper.isSorted;
 
 public class ParallelMergesort extends RecursiveAction {
 

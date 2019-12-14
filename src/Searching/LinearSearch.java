@@ -1,4 +1,4 @@
-package com.schule.Searching;
+package Searching;
 
 public class LinearSearch {
     public static int search(int[] arr, int x) {

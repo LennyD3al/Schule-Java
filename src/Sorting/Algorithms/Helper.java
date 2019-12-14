@@ -1,11 +1,11 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import java.lang.reflect.Array;
 import java.util.Random;
 import java.util.function.Function;
 
 public class Helper {
-     static <T> void swap(T[] arr, int i, int j) {
+    static <T> void swap(T[] arr, int i, int j) {
         T t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;
@@ -90,7 +90,7 @@ public class Helper {
     }
 
     public static double scale(double num, double in_min, double in_max, double out_min, double out_max) {
-         return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
     public static int getMax(int[] arr) {
@@ -124,9 +124,9 @@ public class Helper {
     }
 
     public static void scaleArr(int[] arr, int in_min, int in_max, int out_min, int out_max) {
-         for (int i = 0; i < arr.length; i++) {
-             arr[i] = (int) scale(arr[i], in_min, in_max, out_min, out_max);
-         }
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) scale(arr[i], in_min, in_max, out_min, out_max);
+        }
     }
 
     public static void scaleArr(double[] arr, int in_min, int in_max, int out_min, int out_max) {

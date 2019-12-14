@@ -1,12 +1,9 @@
-package com.schule.Sorting;
-
-import com.schule.Searching.BinarySearch;
-import com.schule.Searching.LinearSearch;
-import com.schule.Sorting.Algorithms.*;
-import com.schule.Sorting.Visualization;
+import Searching.BinarySearch;
+import Sorting.Algorithms.*;
+import Sorting.DrawPanel;
+import Sorting.SortingAlgorithms;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,9 +13,9 @@ import java.util.Objects;
 public class Sort extends JFrame {
 
     // CONSTANTS
-    private static final int X_OFFSET = 14;
+    private static final int X_OFFSET = 10;
     private static final int Y_BUTTON_HEIGHT = 40;
-    private static final int BUTTON_WIDTH = 100;
+    private static final int BUTTON_WIDTH = 150;
     private static final int BUTTON_HEIGHT = 25;
 
     private static final int SIZE = 15;
@@ -40,15 +37,17 @@ public class Sort extends JFrame {
                 System.exit(0);
             }
         });
-        int frameWidth = 650;
-        int frameHeight = 438;
+        int frameWidth = 3 * X_OFFSET + 6 * BUTTON_WIDTH + 5;
+        int frameHeight = 480;
         setSize(frameWidth, frameHeight);
         JPanel mainPanel = new JPanel(null);
         add(mainPanel);
 
         for (int i = 0; i < textFields.length; ++i) {
             JTextField tf = new JTextField();
-            tf.setBounds(X_OFFSET + i * 40, 10, 40, 25);
+            tf.setBounds(X_OFFSET + i * 60, 10, 60, 25);
+            tf.setHorizontalAlignment(JTextField.CENTER);
+            tf.setFont(new Font("TimesRoman", Font.BOLD, 14));
             textFields[i] = tf;
             mainPanel.add(tf);
         }
@@ -125,8 +124,8 @@ public class Sort extends JFrame {
         bEinfuegenInSortFeld.addActionListener(e -> bEinfuegenInSortFeld_Action());
         mainPanel.add(bEinfuegenInSortFeld);
 
-        drawPanel = new DrawPanel(numbers, frameWidth, 250, false, null);
-        drawPanel.setBounds(0, 150, frameWidth, 250);
+        drawPanel = new DrawPanel(numbers, 6 * BUTTON_WIDTH, 300, false, null);
+        drawPanel.setBounds(X_OFFSET, 130, 6 * BUTTON_WIDTH, 300);
         drawPanel.setBackground(Color.GRAY);
         mainPanel.add(drawPanel);
 
@@ -152,59 +151,44 @@ public class Sort extends JFrame {
     }
 
     private void bEinfugen_Action() {
-        try {
-            int input = Integer.parseInt(inputTF.getText());
+        int input = input();
 
-            if (input <= 0 || input > 250) return;
+        if (input <= 0 || input > 250) return;
 
-            for (int i = 0; i < 15; ++i) {
-                if (numbers[i] == 0) {
-                    numbers[i] = input;
-                    ausgeben();
-                    break;
-                }
+        for (int i = 0; i < 15; ++i) {
+            if (numbers[i] == 0) {
+                numbers[i] = input;
+                ausgeben();
+                break;
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         }
-
     }
 
     private void bSuchen_Action() {
         demarkieren();
-        try {
-            int input = Integer.parseInt(inputTF.getText());
+        int input = input();
 
-            if (input <= 0 || input > 250) return;
+        if (input <= 0 || input > 250) return;
 
-            for (int i = 0; i < 15; ++i) {
-                if (numbers[i] == input) {
-                    textFields[i].setBackground(Color.PINK);
-                }
+        for (int i = 0; i < 15; ++i) {
+            if (numbers[i] == input) {
+                textFields[i].setBackground(Color.CYAN);
             }
-
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         }
     }
 
 
     private void bLoschen_Action() {
-        try {
-            int input = Integer.parseInt(inputTF.getText());
+        int input = input();
 
-            if (input <= 0 || input > 250) return;
+        if (input <= 0 || input > 250) return;
 
-            for (int i = 0; i < 15; ++i) {
-                if (numbers[i] == input) {
-                    numbers[i] = 0;
-                    ausgeben();
-                    break;
-                }
+        for (int i = 0; i < 15; ++i) {
+            if (numbers[i] == input) {
+                numbers[i] = 0;
+                ausgeben();
+                break;
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         }
     }
 
@@ -302,71 +286,64 @@ public class Sort extends JFrame {
     private void bSuchenBin_Action() {
         assert isSorted(numbers) : "Array must be sorted";
         demarkieren();
-        try {
-            int input = Integer.parseInt(inputTF.getText());
+        int input = input();
 
-            if (input <= 0 || input > 250) return;
+        if (input <= 0 || input > 250) return;
 
-            int[] toSearch = new int[SIZE];
-            for (int i = 0; i < numbers.length; ++i) {
-                if (numbers[i] == 0) toSearch[i] = Integer.MAX_VALUE;
-                else toSearch[i] = numbers[i];
-            }
-            int index = BinarySearch.search(toSearch, input);
-            if (index != -1) textFields[index].setBackground(Color.PINK);
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        int[] toSearch = new int[SIZE];
+        for (int i = 0; i < numbers.length; ++i) {
+            if (numbers[i] == 0) toSearch[i] = Integer.MAX_VALUE;
+            else toSearch[i] = numbers[i];
         }
+        int index = BinarySearch.search(toSearch, input);
+        if (index != -1) textFields[index].setBackground(Color.PINK);
+
+
     }
 
     private void bEinfuegenInSortFeld_Action() {
         assert isSorted(numbers) : "Array must be sorted";
         demarkieren();
-        try {
-            int input = Integer.parseInt(inputTF.getText());
+        int input = input();
 
-            if (input <= 0 || input > 250) return;
+        if (input <= 0 || input > 250) return;
 
-            int[] toSort = new int[SIZE];
-            for (int i = 0; i < numbers.length; ++i) {
-                if (numbers[i] == 0) toSort[i] = Integer.MAX_VALUE;
-                else toSort[i] = numbers[i];
-            }
-
-            int l = 0;
-            int r = toSort.length - 1;
-            int mid;
-
-            while (l != r) {
-                mid = (l + r) / 2;
-
-                if (toSort[mid] < input) {
-                    l = mid + 1;
-                } else {
-                    r = mid;
-                }
-            }
-
-            if (toSort[l] == input) {
-                // Number already exists
-                textFields[l].setBackground(Color.PINK);
-                return;
-            } else {
-                System.arraycopy(toSort, l, toSort, l + 1, toSort.length - 1 - l);
-                toSort[l] = input;
-            }
-
-            for (int i = 0; i < toSort.length; ++i) {
-                if (toSort[i] == Integer.MAX_VALUE) numbers[i] = 0;
-                else numbers[i] = toSort[i];
-            }
-
-            ausgeben();
-
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        int[] toSort = new int[SIZE];
+        for (int i = 0; i < numbers.length; ++i) {
+            if (numbers[i] == 0) toSort[i] = Integer.MAX_VALUE;
+            else toSort[i] = numbers[i];
         }
+
+        int l = 0;
+        int r = toSort.length - 1;
+        int mid;
+
+        while (l != r) {
+            mid = (l + r) / 2;
+
+            if (toSort[mid] < input) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+
+        if (toSort[l] == input) {
+            // Number already exists
+            textFields[l].setBackground(Color.PINK);
+            return;
+        } else {
+            System.arraycopy(toSort, l, toSort, l + 1, toSort.length - 1 - l);
+            toSort[l] = input;
+        }
+
+        for (int i = 0; i < toSort.length; ++i) {
+            if (toSort[i] == Integer.MAX_VALUE) numbers[i] = 0;
+            else numbers[i] = toSort[i];
+        }
+
+        ausgeben();
+
     }
 
     private void ausgeben() {
@@ -395,6 +372,15 @@ public class Sort extends JFrame {
             else toSearch[i] = arr[i];
         }
         return Helper.isSorted(toSearch);
+    }
+
+    private int input() {
+        try {
+            return Integer.parseInt(inputTF.getText());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public static void main(String[] args) {

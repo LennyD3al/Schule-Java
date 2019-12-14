@@ -1,8 +1,8 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import javax.swing.*;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
+import static Sorting.Algorithms.Helper.isSorted;
 
 public class Introsort {
 
@@ -31,6 +31,7 @@ public class Introsort {
             introsort_loop(a, begin, end, 2 * floor_lg(end - begin), panel, delay);
         }
     }
+
     public static void sort(int[] a, int begin, int end) {
         if (begin < end) {
             introsort_loop(a, begin, end, 2 * floor_lg(end - begin), null, 0);

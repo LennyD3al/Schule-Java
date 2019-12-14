@@ -1,10 +1,10 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import javax.swing.*;
 import java.util.Arrays;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
-import static com.schule.Sorting.Algorithms.Helper.swap;
+import static Sorting.Algorithms.Helper.isSorted;
+import static Sorting.Algorithms.Helper.swap;
 
 public class Heapsort {
 

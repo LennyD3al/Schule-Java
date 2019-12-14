@@ -1,23 +1,21 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import javax.swing.*;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
+import static Sorting.Algorithms.Helper.isSorted;
 
 public class Mergesort {
 
     // Main function that sorts arr[l..r] using
     // merge()
-    private static int[] sort(int[] arr, int l, int r, JPanel panel, long delay)
-    {
-        if (l < r)
-        {
+    private static int[] sort(int[] arr, int l, int r, JPanel panel, long delay) {
+        if (l < r) {
             // Find the middle point
-            int m = (l+r)/2;
+            int m = (l + r) / 2;
 
             // Sort first and second halves
             sort(arr, l, m, panel, delay);
-            sort(arr , m+1, r, panel, delay);
+            sort(arr, m + 1, r, panel, delay);
 
             // Merge the sorted halves
             merge(arr, l, m, r, panel, delay);
@@ -34,20 +32,19 @@ public class Mergesort {
         return sort(arr, null, 0);
     }
 
-    private static void merge(int[] arr, int l, int m, int r, JPanel panel, long delay)
-    {
+    private static void merge(int[] arr, int l, int m, int r, JPanel panel, long delay) {
         // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
         int n2 = r - m;
 
         /* Create temp arrays */
-        int[] L = new int [n1];
-        int[] R = new int [n2];
+        int[] L = new int[n1];
+        int[] R = new int[n2];
 
         /*Copy data to temp arrays*/
         System.arraycopy(arr, l, L, 0, n1);
-        for (int j=0; j<n2; ++j)
-            R[j] = arr[m + 1+ j];
+        for (int j = 0; j < n2; ++j)
+            R[j] = arr[m + 1 + j];
 
 
         /* Merge the temp arrays */
@@ -57,16 +54,12 @@ public class Mergesort {
 
         // Initial index of merged subarry array
         int k = l;
-        while (i < n1 && j < n2)
-        {
-            if (L[i] <= R[j])
-            {
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
                 arr[k] = L[i];
                 i++;
 
-            }
-            else
-            {
+            } else {
                 arr[k] = R[j];
                 j++;
             }
@@ -82,8 +75,7 @@ public class Mergesort {
         }
 
         /* Copy remaining elements of L[] if any */
-        while (i < n1)
-        {
+        while (i < n1) {
             arr[k] = L[i];
             i++;
             k++;
@@ -98,8 +90,7 @@ public class Mergesort {
         }
 
         /* Copy remaining elements of R[] if any */
-        while (j < n2)
-        {
+        while (j < n2) {
             arr[k] = R[j];
             j++;
             k++;

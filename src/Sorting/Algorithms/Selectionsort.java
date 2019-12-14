@@ -1,17 +1,20 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import javax.swing.*;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
-import static com.schule.Sorting.Algorithms.Helper.randomizeArray;
+import static Sorting.Algorithms.Helper.swap;
 
-public class Bogosort {
+public class Selectionsort {
     public static int[] sort(int[] arr, JPanel panel, long delay) {
-        long j = 0;
-        while (!Helper.isSorted(arr))
-        {
-            randomizeArray(arr);
-            // Helper.printArr(arr);
+        int n = arr.length;
+
+        for (int i = 0; i < n - 1; ++i) {
+            int min_idx = i;
+            for (int j = i + 1; j < n; ++j) {
+                if (arr[j] < arr[min_idx])
+                    min_idx = j;
+            }
+            swap(arr, i, min_idx);
             if (panel != null) {
                 panel.repaint();
                 try {
@@ -20,15 +23,12 @@ public class Bogosort {
                     e.printStackTrace();
                 }
             }
-            j++;
         }
-        System.out.print("Run: " + j + "\n");
-        assert isSorted(arr);
+
         return arr;
     }
+
     public static int[] sort(int[] arr) {
         return sort(arr, null, 0);
     }
-
-
 }

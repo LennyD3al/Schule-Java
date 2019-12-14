@@ -1,20 +1,19 @@
-package com.schule.Sorting;
+package Sorting;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.Arrays;
 
-import static com.schule.Sorting.Algorithms.Helper.*;
+import static Sorting.Algorithms.Helper.*;
 
 public class DrawPanel extends JPanel {
 
-    int[] arr;
+    public int[] arr;
     private JPanel panel;
     private int prevWidth;
 
-    DrawPanel(int[] _arr, int width, int height, boolean resize, Thread thread) {
+    public DrawPanel(int[] _arr, int width, int height, boolean resize, Thread thread) {
         this.arr = _arr;
         this.panel = this;
         this.prevWidth = width;
@@ -50,7 +49,7 @@ public class DrawPanel extends JPanel {
         for (int i = 0; i < scaledArr.length; ++i) {
             scaledArr[i] = arr[i];
         }
-        scaleArr(scaledArr, 0, (int)getMax(scaledArr), 0, 100);
+        scaleArr(scaledArr, 0, (int) getMax(scaledArr), 0, 100);
 
         Color cyan = new Color(64, 224, 208);
         Color orange = new Color(255, 140, 0);

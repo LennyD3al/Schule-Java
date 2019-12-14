@@ -1,6 +1,6 @@
-package com.schule.Sorting;
-
-import com.schule.Sorting.Algorithms.*;
+import Sorting.Algorithms.*;
+import Sorting.DrawPanel;
+import Sorting.SortingAlgorithms;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -9,7 +9,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Objects;
 
-import static com.schule.Sorting.Algorithms.Helper.*;
+import static Sorting.Algorithms.Helper.randomizeArray;
 
 public class Visualization extends JFrame {
 

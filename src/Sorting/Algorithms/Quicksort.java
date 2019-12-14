@@ -1,9 +1,8 @@
-package com.schule.Sorting.Algorithms;
+package Sorting.Algorithms;
 
 import javax.swing.*;
 
-import static com.schule.Sorting.Algorithms.Helper.isSorted;
-import static com.schule.Sorting.Algorithms.Helper.swap;
+import static Sorting.Algorithms.Helper.swap;
 
 public class Quicksort {
     public static int[] sort(int[] a) {
@@ -25,7 +24,6 @@ public class Quicksort {
             sort(a, lo, p - 1, panel, delay);
             sort(a, p + 1, hi, panel, delay);
         }
-        assert isSorted(a);
         return a;
     }
 
@@ -33,7 +31,7 @@ public class Quicksort {
         int pivot = a[hi];
         int i = lo;
         for (int j = lo; j < hi; ++j) {
-            if (a[j]  < pivot) {
+            if (a[j] < pivot) {
                 swap(a, i, j);
                 ++i;
                 if (panel != null) {
